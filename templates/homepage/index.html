@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>CS4800 Project</title>
+	
+</head>
+{% include 'components/navbar.html' %}
+<body id="body">
+	<section class ="jumbotron" >
+        <h1 align="center">Virtual Dressing Room</h1>
+    </section>
+	<div id="back">
+	<div class="container" >
+		<div class="row m-4">
+			<div class="col" id="person">
+			  <img id="lady" src="../media/images/normalLady.png" class="card-img-top" alt="...">
+			 
+
+				
+				
+			</div>
+			<div class="col">
+				<div class="row m-4">
+				<h3>Enter measurements in inches:</h3>
+				<div>
+				<label class="m-2">Enter Height: </label>
+				<input type = "text"
+                		id = "height"
+                		value = "" />
+				</div>
+				<div>
+                                <label class="m-2">Enter Shoulder Width: </label>
+                                <input type = "text"
+                                id = "shoulder"
+                                value = "" />
+                                </div>
+				<div>
+                                <label class="m-2">Enter Bust: </label>
+                                <input type = "text"
+                                id = "bust"
+                                value = "" />
+                                </div>
+				<div>
+                                <label class="m-2">Enter Waist: </label>
+                                <input type = "text"
+                                id = "waist"
+                                value = "" />
+                                </div>
+				<div>
+                                <label class="m-2">Enter Hips: </label>
+                                <input type = "text"
+                                id = "hips"
+                                value = "" />
+                                </div>
+
+                        </div>
+			<div class="row m-4 text-center">
+				 <button type="button"  class="btn btn-main btn-primary mt-3" onclick="calc()">Submit</button>
+	<script>
+		function calc(){
+                        //alert("pressed");
+                        var he =  document.getElementById('height').value;
+                        var s =  document.getElementById('shoulder').value;
+                        var b =  document.getElementById('bust').value;
+                        var w =  document.getElementById('waist').value;
+                        var hi =  document.getElementById('hips').value;
+                        var arr= [he,s,b,w,hi];
+                        var i;
+			if(arr[0]==""||arr[0]==null){
+                                 alert("Please fill out everything");
+                                 return false;
+
+                        }
+			if(arr[0]<25){
+				alert("Too short");
+				return false;
+			}
+			if( arr[0]>96){
+				alert("Too tall");
+				return false;
+			}
+			for( i =1;i<arr.length;i++){
+                                if(arr[i]==""||arr[i]==null){
+                                        alert("Please fill out everything");
+                                	return false;
+				
+				}
+				if(arr[i]>60||arr[i]<20){
+					alert("Measurements must be between 20 and 60 inches");
+					return false;
+				}
+                        
+			}
+			var h=((he-65)*4)+400;
+			var wit=((hi-36)*4)+400;
+			try{
+			document.getElementById('lady').style.width=wit+"px";
+			document.getElementById('lady').style.height=h+"px";
+			}catch(err){}
+			
+			return [wit,h];
+		}
+                </script>
+
+			</div>
+			
+			
+			
+			
+			</div>
+		</div>
+		<div class="row align-self-center m-4">
+		
+		<!--<script>
+		function setCards(){
+			for( i=0;i<4;i++){
+				document.getElementById("dressN").innerHTML = "Dress " + i;		
+			}
+		}
+		</script>-->
+		{% for dresses in object_list %}
+		<div class="card m-4 " style="width: 10rem;">
+			<img src="{{dresses.image.url}}" class="card-img-top" alt="{{dresses.name}}" id="dress{{ counter }}">
+			  <div class="card-body">
+				<h5 class="card-title" id="dressN">{{dresses.name}}</h5>
+				<button type="button"  class="btn btn-main btn-primary mt-3" onclick = "dressTry('{{dresses.image.url}}')">Try On</button>
+			  </div>
+			</div>
+	<script>
+		function dressTry(d){
+			try{
+			var i = document.getElementById('dressI');
+			 i.parentNode.removeChild(i);
+
+			}catch(err){
+			}
+			try{
+
+
+			document.getElementById('lady').parentNode.removeChild(document.getElementById('lady'));
+			//var i = document.getElementById('dressI');
+			//i.parentNode.removeChild(i);
+			}
+			catch(err){
+
+			}var img = document.createElement('img');
+			img.src = d; 
+			img.setAttribute("id", "dressI");
+			//img.style.position = "relative";
+			document.getElementById('person').appendChild(img);
+			//var width = document.getElementById('hips').value;
+			//width=width-36;
+			//width=width+100;
+			img.style.position = "relative";
+			var hold =calc();
+			hold[0]-=50;
+		 	document.getElementById('dressI').style.width=hold[0]+"px";
+                        document.getElementById('dressI').style.height=hold[1]+"px";	
+		//	document.getElementById('dressI').style.width = width;
+			//document.getElementbById("dressLayer").src = "../media/images/normalLady.png";
+		//document.getElementbyId(dressLayer).src = {{dresses.image.url}};//document.getElementbyId(dress).src;
+			
+		}
+	
+		</script>
+		{% endfor %}
+
+		
+		</div>
+	</div>
+</body>
+<style>
+.jumbotron{
+        background-color: PaleTurquoise;
+        color: white;
+}
+#lady{
+        position: relative;
+        height: 400px;
+        width: 400px;
+        top: 0;
+    left: 0;
+}
+#dressI{
+        position: absolute;
+        top: 50px;
+    left: 55px;
+        height: 400px;
+        width: auto;
+}
+
+</style>

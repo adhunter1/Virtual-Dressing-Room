@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+
+<head>
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>Login</title>
+</head>
+{% include 'components/navbar.html' %}
+{% block content %}
+<div class="solo_form__background bg-info">
+<form
+  method="POST"
+  action=""
+  class="nativeSSRForm solo_form">
+  {% csrf_token %}
+  <div class="p-4 my-2 shadow rounded bg-white text-center">
+    <h1 class="h4 py-2">Login</h1>
+    <p class="secondary p-1">New to the site? <a href="{% url 'signup' %}">Sign up here</a> instead.</p>
+    <div class="text-center">
+      {{ form.as_p}}
+      
+    </div>
+    <button type="submit" class="btn btn-main btn-primary mt-3">SIGN IN</button>
+  </div>
+</form>
+</div>
+{% endblock %}
+

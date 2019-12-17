@@ -1,0 +1,12 @@
+{% load static %}
+<!DOCTYPE html>
+
+<head>
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>Profile</title>
+</head>
+{% include 'components/navbar.html' %}
+
+<h3>Account for {{ user.username }}</h3>
+<p>Not you? <a href="{% url "logout" %}">Sign out.</a></p>
+

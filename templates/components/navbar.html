@@ -1,0 +1,37 @@
+{% load static %}
+<nav class="navbar">
+  <section class="navbar__side">
+    <a
+      href="/"
+      class="navbar__item--fold navbar__brand"
+    >
+
+      Home
+    </a>
+  </section>
+  <section
+    id="navbar__collapse"
+    class="navbar__group navbar__collapse"
+  >
+
+    <div>
+        {% if request.user.is_authenticated %}
+         <a
+        class="navbar__item--fold navbar__link"
+        href="/accounts/profile"
+        id="prof"
+       >Your Profile
+        {% else %}
+         <a
+        class="navbar__item--fold navbar__link"
+        href="/login"
+        id="prof"
+       >Sign In
+        {% endif %}
+
+      </a>
+    </div>
+    </section>
+
+
+</nav>
